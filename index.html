@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunKick</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div id="app" class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8">TrailThai Fusion</h1>
+        <div id="calendar" class="mb-8"></div>
+        <div id="trainingDetails" class="bg-white shadow-md rounded p-6"></div>
+    </div>
+
+    <script>
+        const trainings = [
+            { date: '2026-03-15', type: 'Hügeltraining', duration: '30-45 min', description: 'Warm-up, 6-10 Hügelsprints, Cool-down' },
+            { date: '2026-03-16', type: 'Muay Thai', duration: '60 min', description: 'Grundtechniken und Sparring' },
+            { date: '2026-03-17', type: 'Leichter Lauf', duration: '30-45 min', description: '5-8 km in entspanntem Tempo' },
+            { date: '2026-03-18', type: 'Tempolauf', duration: '45-60 min', description: '2-3 Intervalle von 3-5 km im Wettkampftempo' },
+        ];
+
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = trainings.map(training => `
+                <div class="bg-white shadow-sm rounded p-4 mb-4 cursor-pointer hover:bg-gray-50" onclick="showTrainingDetails('${training.date}')">
+                    <div class="font-semibold">${training.date}</div>
+                    <div>${training.type}</div>
+                </div>
+            `).join('');
+        }
+
+        function showTrainingDetails(date) {
+            const training = trainings.find(t => t.date === date);
+            const details = document.getElementById('trainingDetails');
+            details.innerHTML = `
+                <h2 class="text-2xl font-bold mb-4">${training.type}</h2>
+                <p class="mb-2"><strong>Datum:</strong> ${training.date}</p>
+                <p class="mb-2"><strong>Dauer:</strong> ${training.duration}</p>
+                <p class="mb-2"><strong>Beschreibung:</strong> ${training.description}</p>
+            `;
+        }
+
+        renderCalendar();
+    </script>
+</body>
+</html>
